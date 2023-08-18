@@ -1,0 +1,222 @@
+//USE
+@use "variables" as var;
+
+//NORMALIZE
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 62.5%;
+}
+body{
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-size: 1.8rem;
+}
+
+//GAP
+.gap--6rem{
+    gap: 6rem;
+}
+.gap--4rem{
+    gap: 4rem;
+}
+
+//SIZE
+.width--65{
+    width: 65%;
+}
+.width--45{
+    width: 45%;
+}
+.width--80{
+    width: 80%;
+}
+
+//TEXT
+.text--title{
+    font-weight: bold;
+    color: var.$Dark-Grayish-Blue;
+}
+.text--p{
+    color: var.$Grayish-Blue;
+    line-height: 2.8rem;
+}
+
+//IMAGES
+.img--overflow{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: -40px;
+}
+.img--large{
+    width: 100%;
+    height: 100%;
+}
+
+//MARGINS
+.margin--top--1rem{
+    margin-top: 1rem;
+}
+
+//LIST
+.list--reset{
+    list-style: none;
+}
+
+//BUTTONS
+.button{
+    border:none;
+    border-radius: 3rem;
+    color: #FFF;
+    padding: 2rem 3.5rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    &--blue{
+        background-color: var.$Light-Blue;
+    }
+    &--cyan{
+        background-color: var.$Strong-Cyan;
+    }
+    &:hover{
+        opacity: 0.8;
+    }
+}
+
+
+//MIXINS
+@mixin flex($direction:auto, $wrap:auto, $justify:auto, $align:auto, $gap:null){
+    display: flex;
+    flex-direction: $direction;
+    flex-wrap: $wrap;
+    justify-content: $justify;
+    align-items: $align;
+    gap: $gap;
+}
+.flex--row--wrap{
+    @include flex(row, wrap, center, center);
+}
+
+
+//GRID
+.grid--center{
+    display: grid;
+    place-items: center;
+}
+
+//ARTICLES
+.article{
+    @include flex(column, wrap, center, center);
+    text-align: center;
+    padding-bottom: 9rem;
+    &__text{
+        @include flex(column, wrap, center, center, 2rem);
+    }
+    &__title{
+        @extend .text--title;
+        font-size: 3rem;
+    }
+    &__p{
+        @extend .text--p;
+    }
+    &__container{
+        display: grid;
+        grid-template-rows: 100%;
+        grid-template-columns: 50% 50%;
+        width: 100%;
+        height: 60rem;
+    }
+    &__figure{
+        grid-row: 1;
+        grid-column: 1;
+        position: relative;
+    }
+    &__list{
+        @include flex(column, wrap, flex-start, center, 7rem);
+        height: 100%;
+        padding: 8rem 0 0 6rem;
+        grid-row: 1;
+        grid-column: 2;
+        li{
+            width: 100%;
+            text-align: left;
+        }
+    }
+    &__container--flex{
+        @include flex(row, wrap, center, center, 2rem);
+    }
+    &__card{
+        @include flex(column, nowrap, flex-start, center, 3rem);
+        width: 26%;
+        height: 25rem;
+    }
+    &__buttons{
+        @include flex(row, wrap, center, center, 2rem);
+    }
+}
+
+.article--images{
+    text-align: center;
+    padding: 0rem 0 12rem;
+    gap: 16rem;
+}
+
+.article--background{
+    height: 80vh;
+    background-image: url("../images/bg-header-desktop.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    gap: 4rem;
+    &__text{
+        @extend .grid--center;
+        gap: 2rem;
+    }
+    &__title{
+        @extend .text--title;
+        font-size: 4rem;
+    }
+    &__p{
+        @extend .text--p;
+        width: 65%;
+    }
+   
+}
+
+
+//FOOTER
+footer{
+    @include flex(row, wrap, center, center, 8rem);
+    padding: 6rem;
+    background-color: var.$Footer;
+    .footer__figure{
+        width: 6rem;
+    }
+    .footer__list{
+        display: grid;
+        grid-template-columns: repeat(3, max-content);
+        grid-template-rows: 1fr 1fr;
+        height: 100%;
+        width: 50%;
+        row-gap: 1.5rem;
+        column-gap: 12rem;
+        li:hover{
+            color: var.$Strong-Cyan;
+        }
+    }
+    .footer__icons{
+        @include flex(row, wrap, center, center, 2rem);
+        height: 100%;
+    }
+}
+.icon--social{
+    cursor: pointer;
+    &:hover path{
+        fill: var.$Strong-Cyan;
+    }
+}
+.cursor--pointer{
+    cursor: pointer;
+}
