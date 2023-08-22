@@ -1,0 +1,21 @@
+@use "variables" as var;
+
+//BUTTONS
+.button{
+    border:none;
+    border-radius: 3rem;
+    color: #FFF;
+    padding: 2rem 3.5rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    &--blue{
+        background-color: var.$Light-Blue;
+    }
+    &--cyan{
+        background-color: var.$Strong-Cyan;
+    }
+    &:hover{
+        opacity: 0.8;
+    }
+}

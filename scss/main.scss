@@ -1,5 +1,7 @@
 //USE
 @use "variables" as var;
+@use "buttons" as btn;
+@use "general" as gen;
 
 //NORMALIZE
 *{
@@ -15,105 +17,13 @@ body{
     font-size: 1.8rem;
 }
 
-//GAP
-.gap--6rem{
-    gap: 6rem;
-}
-.gap--4rem{
-    gap: 4rem;
-}
-
-//SIZE
-.width--65{
-    width: 65%;
-}
-.width--45{
-    width: 45%;
-}
-.width--80{
-    width: 80%;
-}
-
-//TEXT
-.text--title{
-    font-weight: bold;
-    color: var.$Dark-Grayish-Blue;
-}
-.text--p{
-    color: var.$Grayish-Blue;
-    line-height: 2.8rem;
-}
-
-//IMAGES
-.img--overflow{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: -40px;
-}
-.img--large{
-    width: 100%;
-    height: 100%;
-}
-
-//MARGINS
-.margin--top--1rem{
-    margin-top: 1rem;
-}
-
-//LIST
-.list--reset{
-    list-style: none;
-}
-
-//BUTTONS
-.button{
-    border:none;
-    border-radius: 3rem;
-    color: #FFF;
-    padding: 2rem 3.5rem;
-    font-size: 1.8rem;
-    font-weight: bold;
-    cursor: pointer;
-    &--blue{
-        background-color: var.$Light-Blue;
-    }
-    &--cyan{
-        background-color: var.$Strong-Cyan;
-    }
-    &:hover{
-        opacity: 0.8;
-    }
-}
-
-
-//MIXINS
-@mixin flex($direction:auto, $wrap:auto, $justify:auto, $align:auto, $gap:null){
-    display: flex;
-    flex-direction: $direction;
-    flex-wrap: $wrap;
-    justify-content: $justify;
-    align-items: $align;
-    gap: $gap;
-}
-.flex--row--wrap{
-    @include flex(row, wrap, center, center);
-}
-
-
-//GRID
-.grid--center{
-    display: grid;
-    place-items: center;
-}
-
 //ARTICLES
 .article{
-    @include flex(column, wrap, center, center);
+    @include gen.flex(column, wrap, center, center);
     text-align: center;
     padding-bottom: 9rem;
     &__text{
-        @include flex(column, wrap, center, center, 2rem);
+        @include gen.flex(column, wrap, center, center, 2rem);
     }
     &__title{
         @extend .text--title;
@@ -127,6 +37,7 @@ body{
         grid-template-rows: 100%;
         grid-template-columns: 50% 50%;
         width: 100%;
+        max-width: 1800px;
         height: 60rem;
     }
     &__figure{
@@ -135,7 +46,7 @@ body{
         position: relative;
     }
     &__list{
-        @include flex(column, wrap, flex-start, center, 7rem);
+        @include gen.flex(column, wrap, flex-start, center, 7rem);
         height: 100%;
         padding: 8rem 0 0 6rem;
         grid-row: 1;
@@ -146,15 +57,15 @@ body{
         }
     }
     &__container--flex{
-        @include flex(row, wrap, center, center, 2rem);
+        @include gen.flex(row, wrap, center, center, 2rem);
     }
     &__card{
-        @include flex(column, nowrap, flex-start, center, 3rem);
+        @include gen.flex(column, nowrap, flex-start, center, 3rem);
         width: 26%;
         height: 25rem;
     }
     &__buttons{
-        @include flex(row, wrap, center, center, 2rem);
+        @include gen.flex(row, wrap, center, center, 2rem);
     }
 }
 
@@ -165,7 +76,7 @@ body{
 }
 
 .article--background{
-    height: 80vh;
+    height: clamp(600px,80vh, 700px);
     background-image: url("../images/bg-header-desktop.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -188,9 +99,10 @@ body{
 
 //FOOTER
 footer{
-    @include flex(row, wrap, center, center, 8rem);
+    @include gen.flex(row, wrap, center, center, 8rem);
     padding: 6rem;
     background-color: var.$Footer;
+    margin-top: 6rem;
     .footer__figure{
         width: 6rem;
     }
@@ -200,6 +112,7 @@ footer{
         grid-template-rows: 1fr 1fr;
         height: 100%;
         width: 50%;
+        max-width: 600px;
         row-gap: 1.5rem;
         column-gap: 12rem;
         li:hover{
@@ -207,7 +120,7 @@ footer{
         }
     }
     .footer__icons{
-        @include flex(row, wrap, center, center, 2rem);
+        @include gen.flex(row, wrap, center, center, 2rem);
         height: 100%;
     }
 }
@@ -220,3 +133,136 @@ footer{
 .cursor--pointer{
     cursor: pointer;
 }
+
+
+//TABLET QUERIES
+@media screen and (max-width: 1100px) and (min-width: 700px) {
+    .article--background{
+        height: max-content;
+        background-image: url("../images/bg-header-desktop.png");
+        background-size: contain;
+        gap: 4rem;
+        padding: 8rem 1.5rem 9rem;
+        &__title{
+            font-size: 3rem;
+            width: 90%
+        }
+        &__p{
+            width: 100%;
+        }
+    }
+    .article{
+        @include gen.flex(column, nowrap, center, center);
+        &__container{
+            @include gen.flex(column, nowrap, center, center, 5rem);
+            text-align: center;
+            height: max-content;
+        }
+        &__list{
+            @include gen.flex(column, nowrap, center, center, 5rem);
+            padding: 0 1.5rem;
+            li{
+                width: 75%;
+                text-align: center;
+            }
+        }
+        &__container--flex{
+            @include gen.flex(column, nowrap, center, center, 6rem);
+        }
+        &__card{
+            gap: 2.5rem;
+            width: 75%;
+            height: max-content;
+            
+        }
+        &__text{
+            padding: 0 1.5rem;
+        }
+    }
+    .article--images{
+        margin: 0 auto;
+        width: 80%;
+        flex-flow: row wrap;
+        gap: 9rem;
+    }
+    footer{
+        gap: 4rem;
+        margin-top: 5rem;
+        .footer__list{
+            @include gen.flex(column, nowrap, center, center, 3rem);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .footer__icons{
+            @include gen.flex(row, wrap, center, center, 4rem);
+            height: 100%;
+        }
+    }
+    
+}
+
+//MOBILE QUERIES
+@media screen and (max-width: 700px) {
+    .article--background{
+        height: max-content;
+        background-image: url("../images/bg-header-mobile.png");
+        background-size: cover;
+        background-position: center;
+        gap: 4rem;
+        padding: 8rem 1.5rem 9rem;
+        &__title{
+            font-size: 3rem;
+            width: 90%
+        }
+        &__p{
+            width: 100%;
+        }
+    }
+    .article{
+        @include gen.flex(column, nowrap, center, center);
+        &__container{
+            @include gen.flex(column, nowrap, center, center, 5rem);
+            text-align: center;
+            height: max-content;
+        }
+        &__list{
+            @include gen.flex(column, nowrap, center, center, 5rem);
+            padding: 0 1.5rem;
+            li{
+                width: 100%;
+                text-align: center;
+            }
+        }
+        &__container--flex{
+            @include gen.flex(column, nowrap, center, center, 6rem);
+        }
+        &__card{
+            gap: 2.5rem;
+            width: 95%;
+            height: max-content;
+            
+        }
+        &__text{
+            padding: 0 1.5rem;
+        }
+    }
+    .article--images{
+        flex-flow: column nowrap;
+        gap: 9rem;
+    }
+    footer{
+        gap: 4rem;
+        margin-top: 5rem;
+        .footer__list{
+            @include gen.flex(column, nowrap, center, center, 3rem);
+            width: 90%;
+            text-align: center
+        }
+        .footer__icons{
+            @include gen.flex(row, wrap, center, center, 4rem);
+            height: 100%;
+        }
+    }
+  }
+  
